@@ -11,14 +11,16 @@ def get_data(url):
     csvfile = r.text
     
     reader = csv.reader(csvfile.splitlines(), delimiter=',', quotechar='"')
-    
     result = {}
     next(reader)
     for row in reader:
         country = row[1]
         if country not in result:
             result[country] = 0
-        result[country] += int(row[-1])
+        if row[-1] == "":
+            result[country] += 0
+        else:
+            result[country] += int(row[-1])
     return result
     
     
